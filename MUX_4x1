@@ -1,0 +1,32 @@
+// Code your testbench here
+// or browse Examples
+module tb();
+  
+  reg  [3:0] a, b, c, d;
+  reg  [1:0] clk=0, rst=0, sel;
+  wire [3:0] out;
+  
+  mux_4x1 mux_tb(.a(a),.b(b),.c(c),.d(d),.sel(sel),.clk(clk),.rst(rst),.out(out));
+  
+  always #5 clk = !clk;
+  
+  initial 
+    begin
+      rst = 1;
+    end
+  
+  always @(posedge clk)
+    begin 
+    sel <= $random; 
+    a <= $random;    
+    b <= $random;
+    c <= $random;
+    d <= $random;
+    end
+  initial begin
+  $monitor("%h a %h b %h c %h d %h sel %h out",a,b,c,d,sel,out);
+  end 
+  
+  initial 
+    #100 $finish;
+endmodule
