@@ -1,0 +1,26 @@
+module task_example;
+  int a, b;
+  int out;
+  
+  
+  task tk_multiply(int a, b, output int out);
+    a = a*b; //value of a is updated, it won't update global variables a and b
+    out = a;
+    $display("Task: out = %0d for a = %0d and b = %0d", out, a, b);
+  endtask
+  
+  function int func(int a, output int out);
+    out = a*a;
+    return (out);
+  endfunction 
+  
+  initial begin
+    a = 5;
+    b = 6;
+
+    tk_multiply(a,b, out);
+    //func(2,out);
+    $display("Module Task: out = %0d for a = %0d and b = %0d", out, a, b);
+  
+  end
+endmodule
