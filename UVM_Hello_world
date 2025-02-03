@@ -1,0 +1,59 @@
+`include "uvm_macros.svh"
+
+package my_pkg;
+
+import uvm_pkg::*;
+
+typedef my_env; 
+class my_test extends uvm_test;
+  `uvm_component_utils(my_test)
+  my_env env;
+  
+  function new(string name ="my_test", uvm_component parent);
+    super.new(name,parent);  
+  endfunction
+  //Creating env object using my_env class
+  function void build_phase(uvm_phase phase);
+    env=my_env::type_id::create("env",this);
+  endfunction
+  
+  task run_phase(uvm_phase phase);
+    phase.raise_objection(this);
+    #10;
+    `uvm_info("","Hello World!",UVM_MEDIUM);
+    phase.drop_objection(this);
+  endtask
+endclass
+
+
+class my_env extends uvm_env;
+  `uvm_component_utils(my_env)
+  
+  function new(string name = "my_env", uvm_component parent);
+    super.new(name,parent);
+  endfunction
+    
+endclass 
+
+endpackage
+    
+module top;
+  import uvm_pkg::*;
+  import my_pkg::*;
+  
+  HW_intf intf();
+  dut d (.intf(intf));
+  
+  initial begin 
+    run_test("my_test");
+  end
+  
+endmodule 
+
+interface HW_intf;
+  
+endinterface 
+
+
+module dut(HW_intf intf);
+endmodule 
