@@ -1,0 +1,23 @@
+// Testbench
+module top;  
+  initial begin
+    static int number = $urandom();
+    static int count,count_1;   
+    
+    // Instructions:
+    // Write SV code HERE to count the number of ones in the 
+    // variable 'number' and store the value in 'count'
+   // Checks each bit if its 1 then count is incremented
+    foreach(number[p]) begin
+        if(number[p]==1)
+           count++;    
+    end
+    //countones is used to count the no of 1's in number
+    count_1 = $countones(number);
+    $display("number:32'h%0h", number);
+    $display("number:32'b%b", number);
+    $display("count:%0d", count);
+    $display("count_1:%0d", count_1);
+	
+  end
+endmodule
