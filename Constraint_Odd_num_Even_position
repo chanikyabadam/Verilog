@@ -1,0 +1,29 @@
+// Code your design here
+//Even position odd number should be printed and vice versa
+class packet;
+  rand bit [3:0] a1[];
+  rand bit [3:0] a2;
+  
+  constraint p0 {a1.size() == 10;}
+  constraint p1{ foreach (a1[i]) //begin
+    			if(i%2==0) 
+                  a1[i]%2 ==1;
+                else
+                  a1[i]%2==0; //end
+                }
+  
+endclass 
+
+module example();
+
+  packet pkt = new();
+  
+  initial 
+    begin
+      for (int i =0; i<10; i++)
+      	begin 
+      	pkt.randomize();
+          $display("Value of i is %0d a1 is %0d",i, pkt.a1[i]);
+    	end
+     end
+endmodule
